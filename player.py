@@ -31,3 +31,13 @@ class Player(CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
+
+    # A function that moves the player model forward and backwards using vector math
+    # Side note - I don't know vector math.  This part of the code was provided by boot.dev
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt

@@ -29,7 +29,7 @@ def main():
         player.draw(screen)
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
-        player.update(dt)
+        player.update(dt) # Updates the delta time (dt) variable for use in the player update() and rotate() functions
 
     pygame.quit() # Quits the game
 
