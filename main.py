@@ -26,9 +26,10 @@ def main():
                 running = False
 
         screen.fill(black) # Fills the screen with the color black
-        player.draw(screen) 
+        player.draw(screen)
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
+        player.update(dt)
 
     pygame.quit() # Quits the game
 
