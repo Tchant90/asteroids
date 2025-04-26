@@ -5,6 +5,8 @@ import pygame
 from constants import *
 from circleshape import *
 from player import *
+from asteroid import *
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init() # Initializes pygame
@@ -15,14 +17,18 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Creates the game screen set to the predetermined width and height
     pygame.display.set_caption("Asteroids") # Sets the title of the window
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable, )
+
     clock = pygame.time.Clock() # Clock object used to set the refresh rate w/ dt
     player = Player() # Player object
-
-
-    updatable = pygame.sprite.Group(player)
-    drawable = pygame.sprite.Group(player)
-    Player.containers = (updatable, drawable)
-
+    asteroid_field = AsteroidField()
+    
     # Infinite while loop that keeps the window open and the game running, quits if user closes window or ctrl + c from the cli
     running = True
     while running:
@@ -31,11 +37,11 @@ def main():
                 running = False
 
         screen.fill(black) # Fills the screen with the color black
-        for sprite in drawable:
+        for sprite in drawable: # Loops over all objects in the drawable group, draws them to the screen
             sprite.draw(screen)
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
-        updatable.update(dt) # Updates the delta time (dt) variable for use in the player update() and rotate() functions
+        updatable.update(dt) # Updates the delta time (dt) variable for use in the updateable group functions
 
     pygame.quit() # Quits the game
 

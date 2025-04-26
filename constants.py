@@ -1,3 +1,4 @@
+# A page of constant variables from which to call
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 black = (0, 0, 0)
