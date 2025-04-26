@@ -15,8 +15,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Creates the game screen set to the predetermined width and height
     pygame.display.set_caption("Asteroids") # Sets the title of the window
 
-    clock = pygame.time.Clock()
-    player = Player()
+    clock = pygame.time.Clock() # Clock object used to set the refresh rate w/ dt
+    player = Player() # Player object
+
+
+    updatable = pygame.sprite.Group(player)
+    drawable = pygame.sprite.Group(player)
+    Player.containers = (updatable, drawable)
 
     # Infinite while loop that keeps the window open and the game running, quits if user closes window or ctrl + c from the cli
     running = True
@@ -26,10 +31,11 @@ def main():
                 running = False
 
         screen.fill(black) # Fills the screen with the color black
-        player.draw(screen)
+        for sprite in drawable:
+            sprite.draw(screen)
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
-        player.update(dt) # Updates the delta time (dt) variable for use in the player update() and rotate() functions
+        updatable.update(dt) # Updates the delta time (dt) variable for use in the player update() and rotate() functions
 
     pygame.quit() # Quits the game
 
