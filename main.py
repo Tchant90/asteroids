@@ -42,6 +42,11 @@ def main():
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
         updatable.update(dt) # Updates the delta time (dt) variable for use in the updateable group functions
+        for asteroid in asteroids:
+            if asteroid.collisioncheck(player):
+                print("Game over!")
+                import sys
+                sys.exit()
 
     pygame.quit() # Quits the game
 
