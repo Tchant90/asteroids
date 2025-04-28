@@ -53,7 +53,7 @@ def main():
             for shot in shots:
                 if asteroid.collisioncheck(shot):
                     shot.kill()
-                    asteroid.kill()
+                    asteroid.split()
 
     pygame.quit() # Quits the game
 
