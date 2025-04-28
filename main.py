@@ -18,11 +18,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Creates the game screen set to the predetermined width and height
     pygame.display.set_caption("Asteroids") # Sets the title of the window
 
+    # Groups for sprites
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
 
+    # Containers for sprites
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
@@ -30,7 +32,7 @@ def main():
 
     clock = pygame.time.Clock() # Clock object used to set the refresh rate w/ dt
     player = Player(shots) # Player object
-    asteroid_field = AsteroidField()
+    asteroid_field = AsteroidField() # Asteroid Field object
     
     # Infinite while loop that keeps the window open and the game running, quits if user closes window or ctrl + c from the cli
     running = True
@@ -45,12 +47,12 @@ def main():
         pygame.display.flip() # Refreshes the screen
         dt = clock.tick(60) / 1000 # Calculates the refresh rate in milliseconds
         updatable.update(dt) # Updates the delta time (dt) variable for use in the updateable group functions
-        for asteroid in asteroids:
-            if asteroid.collisioncheck(player):
+        for asteroid in asteroids: # Performs a collision check between asteroids, the player, and shots from the player
+            if asteroid.collisioncheck(player): # If player gets hit, it's game over
                 print("Game over!")
                 import sys
                 sys.exit()
-            for shot in shots:
+            for shot in shots: # If a shot hits an asteroid, split the asteroid and kill the shot sprite
                 if asteroid.collisioncheck(shot):
                     shot.kill()
                     asteroid.split()
