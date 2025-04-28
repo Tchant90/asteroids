@@ -7,6 +7,7 @@ from circleshape import *
 from player import *
 from asteroid import *
 from asteroidfield import AsteroidField
+from shot import *
 
 def main():
     pygame.init() # Initializes pygame
@@ -20,13 +21,15 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots_group = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable, )
+    Shot.containers = (updatable, drawable)
 
     clock = pygame.time.Clock() # Clock object used to set the refresh rate w/ dt
-    player = Player() # Player object
+    player = Player(shots_group) # Player object
     asteroid_field = AsteroidField()
     
     # Infinite while loop that keeps the window open and the game running, quits if user closes window or ctrl + c from the cli
