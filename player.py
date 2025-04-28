@@ -53,8 +53,8 @@ class Player(CircleShape):
 
     # Method for shooting from the player sprite's location 
     def shoot(self):
-        new_shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        new_shot.velocity = forward * PLAYER_SHOOT_SPEED
-        self.shots_group.add(new_shot)
-        self.shot_cooldown = self.shot_delay
+        new_shot = Shot(self.position.x, self.position.y, SHOT_RADIUS) # Shot starts at the Player's position
+        forward = pygame.Vector2(0, 1).rotate(self.rotation) # Shot moves forward at the same rate the ship normally travels
+        new_shot.velocity = forward * PLAYER_SHOOT_SPEED # Increase the shot velocity in the direction it's fired by the constant player shoot speed
+        self.shots_group.add(new_shot) # Add the shot to a shots group
+        self.shot_cooldown = self.shot_delay # Set the shot cooldown equal to the shot delay, does this every refresh

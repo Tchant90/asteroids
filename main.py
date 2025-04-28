@@ -21,15 +21,15 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
-    shots_group = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (updatable, )
-    Shot.containers = (updatable, drawable)
+    AsteroidField.containers = updatable
+    Shot.containers = (shots, updatable, drawable)
 
     clock = pygame.time.Clock() # Clock object used to set the refresh rate w/ dt
-    player = Player(shots_group) # Player object
+    player = Player(shots) # Player object
     asteroid_field = AsteroidField()
     
     # Infinite while loop that keeps the window open and the game running, quits if user closes window or ctrl + c from the cli
@@ -50,6 +50,10 @@ def main():
                 print("Game over!")
                 import sys
                 sys.exit()
+            for shot in shots:
+                if asteroid.collisioncheck(shot):
+                    shot.kill()
+                    asteroid.kill()
 
     pygame.quit() # Quits the game
 
